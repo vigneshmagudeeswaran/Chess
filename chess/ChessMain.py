@@ -54,12 +54,15 @@ def main():
                     playerClicks.append(sqSelected) # append for both 1st and 2nd click
                 if len(playerClicks)==2: #after 2nd click
                     move = Move(playerClicks[0],playerClicks[1],gs.board)
-                    print(move.getChessNotation())
+                    if move in validMoves:
+                        print(move.getChessNotation())
                     if move in validMoves:
                         gs.makeMove(move)
                         moveMade =True
-                    sqSelected=() #reset user clicks
-                    playerClicks=[]
+                        sqSelected=() #reset user clicks
+                        playerClicks=[]
+                    else:
+                        playerClicks =[sqSelected]
             elif e.type == p.KEYDOWN:
                 if e.key == p.K_z:#undo whrn 'z' is pressed
                     gs.undo()
@@ -87,6 +90,7 @@ def drawBoard(screen):
     :param screen: The surface to draw the board on.
     """
     colors = (p.Color('white'), p.Color('gray'))
+    
     for r in range(DIMENSION):
         for c in range(DIMENSION):
             if screen is not None:
