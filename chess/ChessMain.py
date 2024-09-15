@@ -54,14 +54,14 @@ def main():
                     playerClicks.append(sqSelected) # append for both 1st and 2nd click
                 if len(playerClicks)==2: #after 2nd click
                     move = Move(playerClicks[0],playerClicks[1],gs.board)
-                    if move in validMoves:
-                        print(move.getChessNotation())
-                    if move in validMoves:
-                        gs.makeMove(move)
-                        moveMade =True
-                        sqSelected=() #reset user clicks
-                        playerClicks=[]
-                    else:
+                    print(move.getChessNotation())
+                    for i in range(len(validMoves)):
+                        if move == validMoves[i]:
+                            gs.makeMove(validMoves[i])
+                            moveMade =True
+                            sqSelected=() #reset user clicks
+                            playerClicks=[]
+                    if not moveMade:
                         playerClicks =[sqSelected]
             elif e.type == p.KEYDOWN:
                 if e.key == p.K_z:#undo whrn 'z' is pressed
